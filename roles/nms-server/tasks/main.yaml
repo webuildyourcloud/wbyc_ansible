@@ -1,8 +1,8 @@
 ---
 
 - name: ensure packages prometheus is installed 
-  become: yes
-  become_method: doas
+  #become: yes
+  #become_method: doas
   when: ansible_os_family == "OpenBSD"
   openbsd_pkg:
     name: "{{item}}"
