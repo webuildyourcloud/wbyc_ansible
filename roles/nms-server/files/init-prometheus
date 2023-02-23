@@ -3,7 +3,7 @@
 # $OpenBSD: prometheus.rc,v 1.1.1.1 2018/01/10 16:26:19 claudio Exp $
 
 daemon="/usr/local/bin/prometheus"
-daemon_flags="--config.file /etc/prometheus/prometheus.yml"
+daemon_flags="--config.file /etc/prometheus/prometheus.yaml"
 daemon_flags="${daemon_flags} --storage.tsdb.path '/var/prometheus' --storage.tsdb.retention.time=90d"
 daemon_user=_prometheus
 
