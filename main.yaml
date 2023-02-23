@@ -1,11 +1,11 @@
 ---
 
 - name: OpenBSD playbook
-  hosts: localhost
+  hosts: all
   connection: local
-  become: true
-  become_user: root
-  become_method: sudo
+  #become: true
+  #become_user: root
+  #become_method: sudo
   pre_tasks:
     - name: Identify System Role
       ansible.builtin.shell: echo "$ROLE"
