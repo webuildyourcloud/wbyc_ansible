@@ -1,0 +1,14 @@
+---
+#- name: Set selinux to permissive
+#  lineinfile:
+#      path: /etc/selinux/config
+#      regexp: '^SELINUX='
+#      line: 'SELINUX=permissive'
+
+#- name: Make sure mount is present
+#  mount:
+#      path: /opt/aem/data
+#      src: /dev/xvdp1
+#      fstype: xfs
+#      state: present
+#      opts: defaults,nofail

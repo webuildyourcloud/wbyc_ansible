@@ -1,0 +1,38 @@
+---
+
+- name: ensure packages prometheus is installed 
+  become: yes
+  become_method: doas
+  when: ansible_os_family == "OpenBSD"
+  openbsd_pkg:
+    name: "{{item}}"
+    state: present
+  with_items:
+    - prometheus
+    - node_exporter
+    - grafana
+
+- name     : Copy prometheus.yaml file to system
+  copy     : src=prometheus.yaml dest=/etc/prometheus/prometheus.yaml owner=root group=wheel mode=0644
+  when     : (ansible_distribution == "OpenBSD")
+  notify   :
+    - restart prometheus
+  
+- name     : Copy targets.json file to system
+  copy     : src=targets.json dest=/etc/prometheus/targets.json owner=root group=wheel mode=0644
+  when     : (ansible_distribution == "OpenBSD")
+  notify   :
+    - restart prometheus
+
+- name     : Copy init script file to system
+  copy     : src=init-prometheus dest=/etc/rc.d/prometheus owner=root group=wheel mode=0755
+  when     : (ansible_distribution == "OpenBSD")
+  notify   :
+    - restart prometheus
+
+- name: start grafana
+  service:
+    name: grafana
+    state: enabled
+  notify:
+    - restart grafana

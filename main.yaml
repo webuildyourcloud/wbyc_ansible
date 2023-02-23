@@ -1,0 +1,34 @@
+---
+
+- name: OpenBSD playbook
+  hosts: localhost
+  connection: local
+  become: true
+  become_user: root
+  become_method: sudo
+  pre_tasks:
+    - name: Identify System Role
+      ansible.builtin.shell: echo "$ROLE"
+      register: node_type
+
+    - name: Echo Node Type
+      ansible.builtin.debug:
+        msg: node_type is {{ node_type.stdout }}
+
+    - name: Identify Environment
+      ansible.builtin.shell: echo "$ENVIRONMENT"
+      register: dtap_level
+
+    - name: Echo DTAP level
+      ansible.builtin.debug:
+        msg: dtap_level is {{ dtap_level.stdout }}
+
+    - name: Check if ROLE is defined as an environment variable
+      ansible.builtin.debug: msg="{{ lookup('env', 'ROLE') }} is an environment variable"
+
+  roles:
+
+    - name: nms-server
+      tags:
+        - nms_server_node
+      when: "node_type.stdout == 'nms_server'"
