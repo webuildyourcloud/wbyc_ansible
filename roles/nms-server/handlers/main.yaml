@@ -14,3 +14,8 @@
   service:
     name: grafana
     state: restarted
+
+- name: restart alertmanager
+  service:
+    name: alertmanager
+    state: restarted

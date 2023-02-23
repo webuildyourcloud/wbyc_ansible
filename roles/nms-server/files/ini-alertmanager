@@ -1,0 +1,14 @@
+#!/bin/ksh
+
+daemon="/usr/local/bin/alertmanager"
+daemon_flags="--config.file /etc/alertmanager/alertmanager.yml"
+daemon_flags="${daemon_flags} --storage.path '/var/alertmanager'"
+daemon_logger="daemon.info"
+daemon_user="_alertmanager"
+
+. /etc/rc.d/rc.subr
+
+rc_bg=YES
+rc_reload=NO
+
+rc_cmd $1
