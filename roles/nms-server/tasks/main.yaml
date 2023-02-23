@@ -33,6 +33,4 @@
 - name: start grafana
   service:
     name: grafana
-    state: enabled
-  notify:
-    - restart grafana
+    state: started
